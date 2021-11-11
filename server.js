@@ -26,8 +26,7 @@ app.get("/app/", (req, res, next) => {
 app.post("/app/new/", (req, res) =>{                                                 // Went over this in lecture
 	const stmt = db.prepare("INSERT INTO userinfo (user,pass) VALUES (?, ?)");
 	const info = stmt.run(req.body.user, md5(req.body.pass));
-	res.json({"message": info.changes + " record created: ID " + info.lastInsertRowid + " (201)"});
-	res.status(201).json(stmt);
+	res.status(201).json({"message": info.changes + " record created: ID " + info.lastInsertRowid + " (201)"});
 });
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
 app.get("/app/users", (req, res) => {	
@@ -36,10 +35,6 @@ app.get("/app/users", (req, res) => {
 });
 
 // READ a single user (HTTP method GET) at endpoint /app/user/:id
-app.get("/app/user/:id", (req, res) => {	
-	const stmt = db.prepare("SELECT FROM userinfo WHERE id = ?").all();
-	res.status(200).json(stmt);
-});
 
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 
