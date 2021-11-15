@@ -12,7 +12,7 @@ app.use(express.json());
 // Set server port
 var HTTP_PORT = 5000 // Added this line of code.
 // Start server
-app.listen(HTTP_PORT, () => {
+let server = app.listen(HTTP_PORT, () => {
     console.log("Server running on port %PORT%".replace("%PORT%",HTTP_PORT))
 });
 // READ (HTTP method GET) at root endpoint /app/
@@ -23,7 +23,7 @@ app.get("/app/", (req, res, next) => {
 
 // Define other CRUD API endpoints using express.js and better-sqlite3
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
-app.post("/app/new/", (req, res) =>{                                                 // Went over this in lecture
+app.post("/app/new/user", (req, res) =>{                                                 // Went over this in lecture
 	const stmt = db.prepare("INSERT INTO userinfo (user,pass) VALUES (?, ?)");
 	const info = stmt.run(req.body.user, md5(req.body.pass));
 	res.status(201).json({"message": info.changes + " record created: ID " + info.lastInsertRowid + " (201)"});
@@ -36,7 +36,7 @@ app.get("/app/users", (req, res) => {
 
 // READ a single user (HTTP method GET) at endpoint /app/user/:id
 
-app.get("/app/users/:id", (req, res) => {	
+app.get("/app/user/:id", (req, res) => {	
 	const stmt = db.prepare("SELECT FROM userinfo where id = ?");
 	res.status(200).json(stmt);
 });
