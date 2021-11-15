@@ -49,7 +49,7 @@ app.get("/app/user/:id", (req, res) => {
 app.delete("/app/delete/user/:id", (req, res) => {	
 	const stmt = db.prepare("DELETE FROM userinfo WHERE id = ?");
 	const info = stmt.run(req.params.id);
-	res.status(200).json(stmt);
+	res.status(200).json({"message": info.changes + " record deleted: ID " + info.lastInsertRowid + " (200)"});
 });
 
 // Default response for any other request
