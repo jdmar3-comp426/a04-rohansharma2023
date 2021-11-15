@@ -36,6 +36,12 @@ app.get("/app/users", (req, res) => {
 
 // READ a single user (HTTP method GET) at endpoint /app/user/:id
 
+app.get("/app/users/:id", (req, res) => {	
+	const stmt = db.prepare("SELECT FROM userinfo where id = ?").all();
+	res.status(200).json(stmt);
+});
+
+
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 
 // DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
